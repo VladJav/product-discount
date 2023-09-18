@@ -3,7 +3,7 @@ import 'express-async-errors';
 import dotenv from 'dotenv';
 import { errorHandler } from './middleware/error-handler.js';
 import { notFoundMiddleware } from "./middleware/not-found.js";
-
+import { authRouter } from "./routes/authRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 8000;
 app.get('/', (req: Request, res: Response)=>{
     res.send('Hello World');
 });
+app.use('/auth', authRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandler);
