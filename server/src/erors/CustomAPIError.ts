@@ -9,7 +9,7 @@ export default class CustomAPIError extends Error {
         this._statusCode = value;
     }
 
-    constructor(msg, statusCode) {
+    constructor(msg: string, statusCode: number) {
         super(msg);
         this._statusCode = statusCode;
     }
