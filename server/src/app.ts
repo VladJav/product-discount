@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { errorHandler } from './middleware/error-handler.js';
 import { notFoundMiddleware } from "./middleware/not-found.js";
 import { authRouter } from "./routes/authRoutes.js";
+import {connectDb} from "./db/connect.js";
 dotenv.config();
 
 const app = express();
@@ -17,8 +18,13 @@ app.use('/auth', authRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandler);
 
-app.listen(PORT, ()=>{
-  console.log(`Server is listening on port ${PORT}...`);
-});
+const start = async () => {
+    await connectDb(process.env.MONGO_URI || '');
+    app.listen(PORT, ()=>{
+        console.log(`Server is listening on port ${PORT}...`);
+    });
+};
+
+start();
 
 export default app;
