@@ -16,7 +16,6 @@
     "lint": "npx eslint ./src",
     "format": "npx eslint ./src --fix"
   },
-  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
