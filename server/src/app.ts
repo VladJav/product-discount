@@ -1,10 +1,10 @@
 import express, { Request, Response } from 'express';
 import 'express-async-errors';
 import dotenv from 'dotenv';
-import { errorHandler } from './middleware/error-handler.js';
-import { notFoundMiddleware } from "./middleware/not-found.js";
-import { authRouter } from "./routes/authRoutes.js";
-import {connectDb} from "./db/connect.js";
+import { errorHandler } from './middleware/error-handler';
+import { notFoundMiddleware } from "./middleware/not-found";
+import { authRouter } from "./routes/authRoutes";
+import {connectDb} from "./db/connect";
 dotenv.config();
 
 const app = express();

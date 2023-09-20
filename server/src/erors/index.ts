@@ -1,2 +1,2 @@
-export { default as CustomAPIError } from './CustomAPIError.js';
-export { default as NotFoundError } from './NotFoundError.js';
+export { default as CustomAPIError } from './CustomAPIError';
+export { default as NotFoundError } from './NotFoundError';

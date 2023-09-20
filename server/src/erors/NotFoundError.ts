@@ -1,4 +1,4 @@
-import {CustomAPIError} from "./index.js";
+import {CustomAPIError} from "./";
 import {StatusCodes} from "http-status-codes";
 
 export default class NotFoundError extends CustomAPIError {
