@@ -12,10 +12,7 @@ const userSchema = new Schema<IUser>({
     email: {
         type: String,
         required: [true, 'Please provide email'],
-        validate:{
-            validator: validator.isEmail,
-            message:  props => `${props.value} is not a valid email!`,
-        },
+        validate: [validator.isEmail, 'Please fill a valid email address'],
         unique: true
     },
     activationCode: {
