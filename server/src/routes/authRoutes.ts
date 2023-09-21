@@ -6,6 +6,6 @@ const router = Router();
 router.post('/register', register);
 router.post('/login', login);
 router.get('/refresh-token', refreshToken);
-router.patch('/acrivate/:token', activateUser);
+router.patch('/activate/:token', activateUser);
 
 export  { router as authRouter};

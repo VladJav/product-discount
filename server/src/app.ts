@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, {json, Request, Response} from 'express';
 import 'express-async-errors';
 import dotenv from 'dotenv';
 import { errorHandler } from './middleware/error-handler';
@@ -9,6 +9,8 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+
+app.use(json());
 
 app.get('/', (req: Request, res: Response)=>{
     res.send('Hello World');
