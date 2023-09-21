@@ -1,9 +1,9 @@
-import User from "../models/User";
 import {Request, Response} from "express";
-import {BadRequestError} from "../erors";
-import jwt from 'jsonwebtoken';
+import {BadRequestError, UnauthenticatedError} from "../erors";
+import jwt, {JwtPayload} from 'jsonwebtoken';
 import {StatusCodes} from "http-status-codes";
-import { sendMail } from "../utils";
+import {sendMail, validateAccessToken} from "../utils";
+import {User} from "../models/User";
 
 export const register = async (req: Request, res: Response) => {
     const { email } = req.body;
@@ -33,6 +33,20 @@ export const login = () => {
 export const refreshToken = () => {
 
 };
-export const activateUser = () => {
+export const activateUser = async (req: Request, res: Response) => {
+    const { token } = req.params;
 
+    const { email } = validateAccessToken(token);
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        throw new UnauthenticatedError('Bad token');
+    }
+
+    user.isActivated = true;
+    user.activationCode = '';
+
+    await user.save();
+    res.json({ msg: 'Email verified' });
 };

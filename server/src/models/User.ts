@@ -4,8 +4,8 @@ import validator from "validator";
 interface IUser{
     email: string,
     activationCode?: string,
-    isActivated: boolean,
-    role: string
+    isActivated?: boolean,
+    role?: string
 }
 
 const userSchema = new Schema<IUser>({
@@ -29,4 +29,4 @@ const userSchema = new Schema<IUser>({
     }
 });
 
-export default model('User', userSchema);
+export const User = model<IUser>('User', userSchema);
