@@ -16,7 +16,7 @@ export const register = async (req: Request, res: Response) => {
         throw new BadRequestError(`User with email: ${email}, already exist`);
     }
 
-    const activationCode = jwt.sign({ email }, process.env.JWT_SECRET || '');
+    const activationCode = jwt.sign({ email }, process.env.JWT_SECRET || '', {expiresIn: '10m'});
 
     await User.create({ email, activationCode, role });
 
@@ -27,8 +27,29 @@ export const register = async (req: Request, res: Response) => {
                 `);
     res.status(StatusCodes.ACCEPTED).json({ msg: 'Success! Check your email to verify account' });
 };
-export const login = () => {
+export const login = async (req: Request, res: Response) => {
+    const { email } = req.body;
 
+    const user = await User.findOne({ email });
+    if (!user) {
+        throw new BadRequestError(`User with email: ${email}, did not exist`);
+    }
+    if(!user.isActivated){
+        throw new BadRequestError(`Please check your email to activate account`);
+
+    }
+
+    const loginCode = jwt.sign({ email }, process.env.JWT_SECRET || '', {expiresIn: '10m'});
+
+    user.loginCode = loginCode;
+    await user.save();
+
+    await sendMail(email, 'Login in account: Product Discount', `
+                <h2>Please click on below link to log in your account</h2>
+                <p>${process.env.CLIENT_URL}/confirm-login/${loginCode}</p>
+                <p><b>NOTE: </b> The above activation link expires in 30 minutes.</p>
+                `);
+    res.status(StatusCodes.ACCEPTED).json({ msg: 'Success! Check your email to confirm log in' });
 };
 export const refreshToken = () => {
 

@@ -4,6 +4,7 @@ import validator from "validator";
 interface IUser{
     email: string,
     activationCode?: string,
+    loginCode?: string,
     isActivated?: boolean,
     role?: string
 }
@@ -21,6 +22,9 @@ const userSchema = new Schema<IUser>({
     isActivated: {
         type: Boolean,
         default: false,
+    },
+    loginCode: {
+        type: String,
     },
     role: {
         type: String,
