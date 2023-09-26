@@ -1,8 +1,8 @@
 import {Request, Response} from "express";
-import {BadRequestError, UnauthenticatedError} from "../erors";
-import jwt, {JwtPayload} from 'jsonwebtoken';
+import {BadRequestError, } from "../erors";
+import jwt from 'jsonwebtoken';
 import {StatusCodes} from "http-status-codes";
-import {sendMail, validateAccessToken} from "../utils";
+import {sendMail} from "../utils";
 import {User} from "../models/User";
 
 export const register = async (req: Request, res: Response) => {
@@ -55,19 +55,36 @@ export const refreshToken = () => {
 
 };
 export const activateUser = async (req: Request, res: Response) => {
-    const { token } = req.params;
+    // const { token } = req.params;
+    //
+    // const { email } = validateAccessToken(token);
+    //
+    // const user = await User.findOne({ email });
+    //
+    // if (!user || user.activationCode !== token) {
+    //     throw new UnauthenticatedError('Bad token');
+    // }
+    //
+    // user.isActivated = true;
+    // user.activationCode = '';
+    //
+    // await user.save();
+    // res.json({ msg: 'Email verified' });
+};
 
-    const { email } = validateAccessToken(token);
+export const confirmLogin = async (req: Request, res: Response) => {
+    // const { token } = req.params;
+    // const userAgent = req.headers['user-agent'];
+    //
+    // const { email } = validateAccessToken(token);
+    //
+    // const user = await User.findOne({ email });
+    //
+    // if (!user || user.activationCode !== token) {
+    //     throw new UnauthenticatedError('Bad token');
+    // }
+    //
+    // user.loginCode = '';
+    // await user.save();
 
-    const user = await User.findOne({ email });
-
-    if (!user) {
-        throw new UnauthenticatedError('Bad token');
-    }
-
-    user.isActivated = true;
-    user.activationCode = '';
-
-    await user.save();
-    res.json({ msg: 'Email verified' });
 };

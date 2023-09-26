@@ -18,11 +18,12 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": ["src/**/*",
-    "test/**/*"
+    "test/**/*", "environment.d.ts"
   ],
   "exclude": ["node_modules"],
   "lib": ["esnext"],
   "ts-node": {
-    "esm": true
+    "esm": true,
+    "files": true
   }
 }
