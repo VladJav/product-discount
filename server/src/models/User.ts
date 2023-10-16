@@ -1,12 +1,13 @@
 import {model, Schema} from "mongoose";
 import validator from "validator";
 
-interface IUser{
-    email: string,
-    activationCode?: string,
-    loginCode?: string,
-    isActivated?: boolean,
-    role?: string
+export interface IUser{
+    email: string;
+    _id: string;
+    activationCode?: string;
+    loginCode?: string;
+    isActivated?: boolean;
+    role?: string;
 }
 
 const userSchema = new Schema<IUser>({
